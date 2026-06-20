@@ -81,8 +81,7 @@ story-illustrator/
 ├── llm_client.py       # Groq / Llama 3.1 8B Instant integration
 ├── image_client.py     # Pollinations FLUX integration
 ├── requirements.txt    # Python dependencies
-├── .env.example        # API key template
-├── .env                # Your API keys (never commit this)
+├── .env                
 └── README.md
 ```
 
@@ -91,10 +90,9 @@ story-illustrator/
 ## Features
 
 - 🖊️ **LLM story generation** with a visual bible step for consistent characters/style, plus structured scene parsing
-- 🎨 **Diffusion image generation** with storybook-style prompts and automatic retries on rate limits/cold starts
+- 🎨 **Diffusion image generation** with storybook-style prompts 
 - 📖 **Interactive Gradio UI** with 4-scene storybook layout
 - 💡 **Example prompts** to get started quickly
-- 📥 **Downloadable images** for each scene
 
 ---
 
