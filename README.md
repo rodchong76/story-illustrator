@@ -13,16 +13,17 @@ User Prompt
 [Gradio UI]
     │
     ▼
-[LLM — Big Pickle via OpenRouter]
-  Generates 4-scene structured story
+[LLM — Llama 3.1 8B Instant via Groq]
+  Generates a visual bible + 4-scene structured story
     │
     ▼
 [Scene Parser]
   Extracts narrative text + image prompt per scene
+  (visual bible injected into each image prompt for character consistency)
     │
     ▼
-[Diffusion Model — FLUX.1-schnell via HuggingFace]
-  Generates one illustration per scene
+[Diffusion Model — FLUX via Pollinations]
+  Generates one illustration per scene (with retry/backoff for rate limits)
     │
     ▼
 [Gradio UI — Story Display]
@@ -30,8 +31,8 @@ User Prompt
 ```
 
 **Technologies used:**
-- **LLM:** `opencode/big-pickle` (Zhipu GLM-4.6, 355B MoE) via OpenRouter
-- **Diffusion:** `black-forest-labs/FLUX.1-schnell` via HuggingFace Inference API
+- **LLM:** `llama-3.1-8b-instant` via the Groq API
+- **Diffusion:** `flux` via the Pollinations image API (no API key required)
 - **UI:** Gradio 4.x
 - **Language:** Python 3.10+
 
@@ -56,14 +57,13 @@ cp .env.example .env
 ```
 Then open `.env` and fill in:
 ```
-OPENROUTER_API_KEY=sk-or-your-key-here
-HF_TOKEN=hf_your-token-here
+GROQ_API_KEY=gsk_your-key-here
 ```
 
-**Getting your keys:**
-- OpenRouter: sign up at [openrouter.ai](https://openrouter.ai) → Keys → Create Key
-- HuggingFace: sign up at [huggingface.co](https://huggingface.co) → Settings → Access Tokens → New Token (Read)
-- Also accept the FLUX.1-schnell license at: [huggingface.co/black-forest-labs/FLUX.1-schnell](https://huggingface.co/black-forest-labs/FLUX.1-schnell)
+**Getting your key:**
+- Groq: sign up at [console.groq.com](https://console.groq.com) → API Keys → Create API Key
+
+> Note: Image generation uses the public Pollinations API and does not require an API key.
 
 ### 4. Run the app
 ```bash
@@ -78,8 +78,8 @@ Then open your browser at `http://127.0.0.1:7860`
 ```
 story-illustrator/
 ├── app.py              # Gradio UI and main pipeline
-├── llm_client.py       # OpenRouter / Big Pickle API integration
-├── image_client.py     # HuggingFace FLUX.1-schnell integration
+├── llm_client.py       # Groq / Llama 3.1 8B Instant integration
+├── image_client.py     # Pollinations FLUX integration
 ├── requirements.txt    # Python dependencies
 ├── .env.example        # API key template
 ├── .env                # Your API keys (never commit this)
@@ -90,8 +90,8 @@ story-illustrator/
 
 ## Features
 
-- 🖊️ **LLM story generation** with structured scene parsing
-- 🎨 **Diffusion image generation** with storybook-style prompts
+- 🖊️ **LLM story generation** with a visual bible step for consistent characters/style, plus structured scene parsing
+- 🎨 **Diffusion image generation** with storybook-style prompts and automatic retries on rate limits/cold starts
 - 📖 **Interactive Gradio UI** with 4-scene storybook layout
 - 💡 **Example prompts** to get started quickly
 - 📥 **Downloadable images** for each scene
@@ -100,6 +100,5 @@ story-illustrator/
 
 ## Notes
 
-- First image generation may take ~20–30 seconds if the model is cold-loading on HuggingFace.
-- The Big Pickle model has a 200k context window — complex prompts are fully supported.
+- Image generation may need a few retries if Pollinations is rate-limited; the client backs off automatically (up to 3 attempts per scene).
 - All inference is API-based; no local GPU required.
