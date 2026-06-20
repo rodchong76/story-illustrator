@@ -1,6 +1,6 @@
 # 📖 Story Illustrator
 
-An AI-powered interactive storybook generator. Enter a theme, and the app writes a 4-scene story using a Large Language Model, then illustrates each scene using a Diffusion Model — all displayed in an interactive Gradio interface.
+An AI-powered interactive storybook generator. Enter a theme, and the app writes a 4-scene story using a Large Language Model, then illustrates each scene using a Diffusion Model, all displayed in an interactive Gradio interface.
 
 ---
 
