@@ -51,11 +51,9 @@ cd story-illustrator
 pip install -r requirements.txt
 ```
 
-### 3. Set up API keys
+### 3. Set up API key
 ```bash
-cp .env
-```
-Then open `.env` and fill in:
+Open `.env` and fill in:
 ```
 GROQ_API_KEY=gsk_your-key-here
 ```
