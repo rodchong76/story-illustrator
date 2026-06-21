@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
 ### 3. Set up API keys
 ```bash
-cp .env.example .env
+cp .env
 ```
 Then open `.env` and fill in:
 ```
