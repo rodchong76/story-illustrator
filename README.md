@@ -53,6 +53,7 @@ pip install -r requirements.txt
 
 ### 3. Set up API key
 ```bash
+```
 Open .env and fill in:
 ```
 GROQ_API_KEY=gsk_your-key-here
